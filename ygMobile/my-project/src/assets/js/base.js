@@ -32,4 +32,10 @@
 		});   	
 	}
 
+	/******************设置显示内容区域的高度***********************/
+	// window["show_height"] = $(window).height();// 屏幕高
+	// window["show_width"] = $(window).width();// 屏幕宽
+	// console.log($("#header"));
+	// $("#mian").css({height:window["show_height"]-$("#header").width()-$("#footer").width()});
+
 })();

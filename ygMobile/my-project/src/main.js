@@ -36,6 +36,12 @@ Vue.prototype.$http = function(DATA,callBackFn,fn,fn_1){
 	});   	
 }
 
+// vue.directivue('notNull',{
+// 	bind(el,binding){
+// 		el.val() = null
+// 	}
+// })
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

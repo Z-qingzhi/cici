@@ -1,7 +1,8 @@
 <template>
   <div id="loading">
       <h1>管理系统登陆</h1>
-      <div class="login">
+      <div class="login" ref="aaaaa">
+      <form action="Loading_submit" method="post" accept-charset="utf-8">
         <p>
           <!-- <span class="em"> 医院：</span> -->
             <el-select v-model="value" placeholder="请选择" ref="hospitalSelect">
@@ -14,17 +15,19 @@
             </el-select>
         </p>
         <p>
-        <el-input v-model="input1" placeholder="请输入登录名"></el-input>
+        <el-input @blur="notNull()" v-model="input1" placeholder="请输入登录名" id="account"></el-input>
 
         <p>
-          <el-input v-model="input2" placeholder="请输入密码"></el-input>
+          <el-input @blur="notNull()" v-model="input2" placeholder="请输入密码" id="password"></el-input>
         </p>
         <p class="err" >
-          <span v-if="true">账号、密码错误</span>
+          <span v-if="errorB">{{error}}</span>
         </p>
         <div id="loadBtn">
           <el-button type="success" @click="loadCheck()">登陆</el-button>
         </div>
+      </form>
+        
       </div>
   </div>
 </template>
@@ -48,18 +51,35 @@
         }],
         value:'1',
         input1:'',
-        input2:''
+        input2:'',
+        errorB:false,
+        error:''
       }
     },
     methods:{
+      //验证账号密码是否为空
+       notNull(event){
+        if(this.input1 == ''|| this.input2 == ''){
+          this.errorB = true;
+          this.error = '账号密码不能为空！'
+        }else{
+          this.errorB = false;
+        }
+      },
+      //登录发送请求
       loadCheck(){
-        var data = {"URL":"../SQL/XML","sqlNameSpace":"ZL_PF_SecondTriage_XML_6","sqlFile":"zlManage/ZL_PF_SecondTriage.xml"};
-        data["aa"] = this.input1;
-        data["password"] = this.input2;
-        this.$http(data,function(){
-          
-        });
+        if(this.input1 != ''&& this.input2 != ''){
+          var URL='mobileLoginUser';
+          var data={"TYPE":"POST","URL":URL,"DATATYPE":"json"};
+          data["aa"] = this.input1;
+          data["password"] = this.input2;
+          // this.$http(data,function(msg){
+          //   alert(msg)
+          // });
+          this.$router.push('Menu')
+        }
       }
+
     }
   }
 </script>
@@ -94,7 +114,8 @@
   }
   .err{
     text-align: center;
-    height:0.2rem;
+    height:0.4rem;
+    color:red;
   }
   #loadBtn{
     display: flex;
