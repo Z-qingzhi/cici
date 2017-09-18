@@ -5,7 +5,7 @@ import getters from './getters'
 import actions from './actions'
 
 import seller from './modules/seller'
-import goods from './modules/goods'
+import loading from './modules/loading'
 import ratings from './modules/ratings'
 
 Vue.use(Vuex);
@@ -15,7 +15,7 @@ export default new Vuex.Store({
 	actions,
 	modules:{
 		seller,
-		goods,
+		loading,
 		ratings
 	}
 });

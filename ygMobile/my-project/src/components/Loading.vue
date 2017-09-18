@@ -14,16 +14,16 @@
             </el-select>
         </p>
         <p>
-        <el-input v-model="input" placeholder="请输入登录名"></el-input>
+        <el-input v-model="input1" placeholder="请输入登录名"></el-input>
 
         <p>
-          <el-input v-model="input" placeholder="请输入密码"></el-input>
+          <el-input v-model="input2" placeholder="请输入密码"></el-input>
         </p>
         <p class="err" >
           <span v-if="true">账号、密码错误</span>
         </p>
         <div id="loadBtn">
-          <el-button type="success">登陆</el-button>
+          <el-button type="success" @click="loadCheck()">登陆</el-button>
         </div>
       </div>
   </div>
@@ -47,7 +47,18 @@
           label: '南山'
         }],
         value:'1',
-        input:''
+        input1:'',
+        input2:''
+      }
+    },
+    methods:{
+      loadCheck(){
+        var data = {"URL":"../SQL/XML","sqlNameSpace":"ZL_PF_SecondTriage_XML_6","sqlFile":"zlManage/ZL_PF_SecondTriage.xml"};
+        data["aa"] = this.input1;
+        data["password"] = this.input2;
+        this.$http(data,function(){
+          
+        });
       }
     }
   }
@@ -62,8 +73,8 @@
   }
   .iptW{
     display: inline-block;
-    /*width:4.19921875rem;*/
   }
+  p{margin:0.09765625rem 0.0rem;}
   p .el-select{
     width:100%;
   }
@@ -77,7 +88,7 @@
     width:5.0rem;
     margin:0 auto;
     border:1px solid #ccc;
-    padding:0.5rem 0.5rem 0.8rem;
+    padding:0.5rem 0.5rem 0.6rem;
     background-color: rgba(26,137,235,.1);
     border-radius: 0.06rem
   }
