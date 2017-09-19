@@ -4,14 +4,16 @@
         <h1>阳光整形美容医院</h1>
       </div>
       <div id="main">
-
+        <div style="height:10000px;width:100%;background-color:green;">
+          <input type="text">
+        </div>
       </div>
       <div id="footer">
-          <ul>
-            <li>143</li>
-            <li>2d374b</li>
-            <li>3</li>
-          </ul>
+        <el-row>
+          <el-col :span="8"><div>100</div></el-col>
+          <el-col :span="8"><div>200</div></el-col>
+          <el-col :span="8"><div>300</div></el-col>
+      </el-row>
       </div>
   </div>
 </template>
@@ -36,7 +38,7 @@
       }
     },
     mounted(){
-      var a =$(window).height()-$("#header").height()-$("#footer").height();
+      // var a =$(window).height()-$("#header").height()-$("#footer").height();
       // $main
     }
   }
@@ -57,27 +59,31 @@
     background: -webkit-linear-gradient(left, rgb(77,143,255), rgb(42,191,249));
     font-size: 0.13671875rem;
     width:100%;
-    position: relative;
+    position: absolute;
     top:0px;
     left:0px;
   }
+  #main{
+    position: absolute;
+    overflow: scroll;
+    width:100%;
+    top:0.48828125rem;
+    bottom:0.48828125rem;
+    z-index:1;
+  }
   #footer{
     width:100%;
-    position: fixed;
+    position: absolute;
     height:0.48828125rem;
     line-height: 0.48828125rem;
      background: -webkit-linear-gradient(left, rgb(77,143,255), rgb(42,191,249));
     bottom:0px;
     left:0px;
   }
-  #footer ul{
-    display: flex;
-    justify-content: center;
-    align-items:center;
+  #footer .el-row{
+    text-align: center;
   }
-  #footer ul li{
-    width:0.9765625rem;
-    justify-content: center;
-    align-items:center;
+  #footer .el-row .el-col{
+    border:1px solid red;
   }
 </style>

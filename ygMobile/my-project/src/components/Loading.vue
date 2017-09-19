@@ -59,11 +59,17 @@
     methods:{
       //验证账号密码是否为空
        notNull(event){
-        if(this.input1 == ''|| this.input2 == ''){
+        if(this.input1 == ''){
           this.errorB = true;
-          this.error = '账号密码不能为空！'
+          this.error = '账号不能为空!'
+          
         }else{
-          this.errorB = false;
+          if(this.input2 == ''){
+            this.errorB = true;
+            this.error = '密码不能为空!'
+          }else{
+            this.errorB = false;
+          }
         }
       },
       //登录发送请求
