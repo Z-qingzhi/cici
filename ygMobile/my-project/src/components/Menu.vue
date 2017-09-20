@@ -4,16 +4,20 @@
         <h1>阳光整形美容医院</h1>
       </div>
       <div id="main">
-        <div style="height:10000px;width:100%;background-color:green;">
-          <input type="text">
+        <div>
+          <router-view></router-view>
         </div>
       </div>
       <div id="footer">
-        <el-row>
-          <el-col :span="8"><div>100</div></el-col>
-          <el-col :span="8"><div>200</div></el-col>
-          <el-col :span="8"><div>300</div></el-col>
-      </el-row>
+         <div class="tab-item">
+          <router-link to="/Menu/Zy">主页</router-link>
+        </div>
+        <div class="tab-item">
+          <router-link to="/Menu/Message">评论</router-link>
+        </div>
+        <div class="tab-item">
+          <router-link to="/Menu/Me">商家</router-link>
+        </div>
       </div>
   </div>
 </template>
@@ -22,19 +26,7 @@
   export default {
     data() {
       return {
-        hospitalSelect: [{
-          value: '1',
-          label: '阳光'
-        }, {
-          value: '2',
-          label: '东门'
-        }, {
-          value: '3',
-          label: '宝安'
-        }, {
-          value: '4',
-          label: '南山'
-        }]
+        
       }
     },
     mounted(){
@@ -54,20 +46,24 @@
   }
   #header{
     text-align: center;
-    height:0.48828125rem;
-    line-height: 0.48828125rem;
+    color:#fff;
+    height:0.390625rem;
+    line-height: 0.390625rem;
     background: -webkit-linear-gradient(left, rgb(77,143,255), rgb(42,191,249));
-    font-size: 0.13671875rem;
     width:100%;
     position: absolute;
     top:0px;
     left:0px;
   }
+  h1{
+    font-size: 0.15625rem;
+    font-weight: 500;
+  }
   #main{
     position: absolute;
     overflow: scroll;
     width:100%;
-    top:0.48828125rem;
+    top:0.390625rem;
     bottom:0.48828125rem;
     z-index:1;
   }
@@ -76,14 +72,49 @@
     position: absolute;
     height:0.48828125rem;
     line-height: 0.48828125rem;
-     background: -webkit-linear-gradient(left, rgb(77,143,255), rgb(42,191,249));
+    background: -webkit-linear-gradient(left, rgb(255,255,255), rgb(255,255,255));
     bottom:0px;
     left:0px;
+    display:flex;
+    justify-content: space-around;
+     border-top:1px solid #ccc;
+     box-sizing:border-box;
   }
-  #footer .el-row{
-    text-align: center;
+   #footer .tab-item{
+     width:100%;
+    height:100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+   }
+  #footer .tab-item a{
+      display: inline-block;
+      text-align: center;
+      width:100%;
+      height:100%;
   }
-  #footer .el-row .el-col{
-    border:1px solid red;
+  .ico-zy{
+  background: url(../assets/img/zy.png) no-repeat;
+  background-size: 100%;
+  }
+   .ico-zyActive{
+  background: url(../assets/img/zyActive.png) no-repeat;
+  background-size: 100%;
+  }
+  .ico-message{
+    background: url(../assets/img/message.png) no-repeat;
+    background-size: 100%;
+  }
+   .ico-messageActive{
+    background: url(../assets/img/messageActive.png) no-repeat;
+    background-size: 100%;
+  }
+  .ico-me{
+    background: url(../assets/img/me.png) no-repeat;
+    background-size: 100%;
+  }
+  .ico-meActive{
+    background: url(../assets/img/meActive.png) no-repeat;
+    background-size: 100%;
   }
 </style>

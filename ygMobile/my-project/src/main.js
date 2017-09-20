@@ -2,8 +2,11 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import './assets/js/jquery-1.7.2.min.js'
 import './assets/js/base.js'
-import 'element-ui/lib/theme-default/index.css'
-import ElementUI from 'element-ui'
+// import './assets/css/ico.css'
+// import 'element-ui/lib/theme-default/index.css'
+// import ElementUI from 'element-ui'
+import 'mint-ui/lib/style.css'
+import MintUI from 'mint-ui'
 import Vue from 'vue'
 import App from './App'
 import router from './router'
@@ -11,9 +14,10 @@ import store from './store/index.js'
 
 
 Vue.config.productionTip = false
-Vue.use(ElementUI)
+// Vue.use(ElementUI)
+Vue.use(MintUI)
+/****************************重写ajax****************************/
 Vue.prototype.$http = function(DATA,callBackFn,fn,fn_1){
-	/****************************重写ajax****************************/
 	try{
 		DATA["key"]=window.external.setKey("0",window.top.getKey());
 	}catch(e){}

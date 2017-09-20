@@ -1,12 +1,14 @@
 html,body,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,fieldset,legend,input,textarea,select{margin:0;padding:0} 
-body{font-size:14px;font:"宋体","Arial Narrow",HELVETICA;background:#fff;-webkit-text-size-adjust:100%;} 
+body{font-size:14px;font:"宋体","Arial Narrow",HELVETICA;background:#fff;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent} 
 a{color:#2d374b;text-decoration:none} 
-a:hover{color:#cd0200;text-decoration:underline} 
+a:hover{color:#cd0200;text-decoration:none}
+/*a:visited {color:#000000} */
+/*a:active {color:#000000}  */
 em{font-style:normal} 
 li{list-style:none} 
 img{border:0;vertical-align:middle} 
 table{border-collapse:collapse;border-spacing:0} 
-/*p{word-wrap:break-word}*/ 
+p{word-wrap:break-word} 
 
 /*@media screen and (orientation: portrait) {
       html{
@@ -47,3 +49,21 @@ table{border-collapse:collapse;border-spacing:0}
         background-color: yellow ;
      }
 }*/
+input,select{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    background-image: none;
+    border-radius: 4px;
+    border: 1px solid #bfcbd9;
+    box-sizing: border-box;
+    color: #1f2d3d;
+    font-size: inherit;
+    height: 36px;
+    line-height: 1;
+    outline: 0;
+    padding: 3px 10px;
+    transition: border-color .2s cubic-bezier(.645,.045,.355,1)
+}
+/*.lastML{margin-bottom:0px;padding-bottom: 0px;}*/
