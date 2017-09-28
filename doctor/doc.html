@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,user-scalable=no" />
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="doc.css">
+	<script src="jquery-2.2.0.js"></script>
+	<script src="1.js"></script>
+	<script>
+		(function(){
+		 	setRem() 
+		 	window.addEventListener('orientation' in window?"deviceorientation":"resize",setRem);//判断
+		 	function setRem(){
+		 		var html=document.documentElement;
+		 		var hWidth=html.getBoundingClientRect().width;
+		 		html.style.fontSize=hWidth/10+"px";
+		 	}
+
+		})();
+	</script>
+	<style>
+		*{padding:0px;margin:0px;}
+		#box{
+			width:10.0rem;
+			height:17.78666667rem;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		
+	</div>
+</body>
+</html>
+<script>
+$(function(){
+
+	var yy =  new lzShowData("#box",{
+		titlewidth:50,
+		titleheight:50,
+		doctorwidth:400
+	});
+	yy.show({data:msg})
+
+
+})
+
+
+
+
+
+	/****************手术预约开始*********************/
+function lzShowData(oParent,opt){
+	this.oParent = $(oParent);//id
+	var titlewidth =null;//标题宽
+	var titleheight =null;//标题高
+	var doctorwidth =null;//内容展示宽
+	var doctorheight =null;//内容展示高
+	var titleL = null;//左标题数据
+	var titleT = null;//上标题数据
+	var data = null;//ajax数据
+//	var time = ["1点","1点半","2点","2点半","3点","3半","4点","4点半","5点","5点半","6点","6点半","7点","7点半","8点","8点半","9点","9点半","10点","10点半","11点","11点半","12点","12点半","13点","13点半","14点","14点半","15点","15点半","16点","16点半","17点","17点半","18点","18点半","19点","19点半","20点","20点半","21点","21点半","22点","22点半","23点","23点半","24点","24点半"];
+	this.settings = {//默认设置
+		titlewidth:50,
+		titleheight:30,
+		doctorwidth:200,
+		doctorheight:200,
+		hidetitleL:true
+	},
+	this.showSettings = {//数据
+		data:''
+	},
+	this.init(opt);
+	return this;
+}
+
+lzShowData.prototype ={
+	//初始化页面html
+	init:function(opt){
+		$.extend(this.settings , opt);
+		var html_ = '';
+		html_  += '<div id="lzShowTitle">'
+						html_  +=	'<div id="lzShowTitleHead">'
+									html_  +='<ul>'
+										html_  +='<li class="dct">医生</li>'
+									html_  +='</ul>'
+								html_  +='</div>'
+								html_  +='<div id="lzShowTitleBody">'
+//									html_  +='<div>'
+										html_  +='<ul>'
+											
+										html_  +='</ul>'
+//									html_  +='</div>'
+								html_  +='</div>'
+								html_  +='<div style="clear:both;"></div>'
+								
+						html_  +='</div>'
+						
+						html_  +='<div id="lzShowMain">'
+							html_  +='<div id="lzShowHead">'
+								html_  +='<ul>'
+									
+								html_  +='</ul>'
+							html_  +='</div>'
+							html_  +='<div id="lzShowBody">'
+								html_  +='<div>'
+								
+									html_  +='<div style="clear:both;"></div>'
+								html_  +='</div>'
+							html_  +='</div>'
+							html_  +='<div style="clear:both;"></div>'
+						html_  +='</div>';
+			this.oParent.html(html_);
+			$("#lzShowBody").on("scroll",function(){//设置滚动条移动
+					$("#lzShowHead").scrollTop($(this).scrollTop());
+			});
+			$("#lzShowBody").on("scroll",function(){
+				$("#lzShowTitleBody").scrollLeft($(this).scrollLeft());
+			});	
+	},
+	css:function(){
+		//设置css
+			var  w = $(this.oParent).width();//窗口宽度
+			var h = $(this.oParent).height();//窗口高度
+			this.titlewidth = this.settings.titlewidth;//标题展示宽度
+			this.titleheight = this.settings.titleheight;//标题展示高度
+			this.doctorwidth = this.settings.doctorwidth;//医生展示宽度
+			this.doctorheight = this.settings.doctorheight;//医生展示高度
+			//上标题name样式
+			$("#lzShowTitle").css({"width":(w),"height":this.titleheight});
+			$("#lzShowTitleHead").css({"width":this.titlewidth});
+			$("#lzShowTitleHead ul li,#lzShowTitleBody ul li").css({"lineHeight":this.titleheight+'px'});
+			//上标题body样式
+			var TitleBodyLiSum = $("#lzShowTitleBody ul li").length;
+			$("#lzShowTitleBody,#lzShowBody").css({"width":(w-this.titlewidth)});
+			$("#lzShowTitleBody ul,#lzShowBody div").css({"width":(TitleBodyLiSum*this.doctorwidth)});
+			$("#lzShowTitleBody ul li,#lzShowBody ul li").width(this.doctorwidth);
+			
+			//展示内容框
+			var TitleBodyLiSum = $("#lzShowHead ul li").length;
+			$("#lzShowMain,#lzShowHead,#lzShowBody").height(h-this.titleheight);
+			$("#lzShowHead").width(this.titlewidth);
+			$("#lzShowHead ul li,#lzShowBody ul li").height(this.doctorheight);
+			$("#lzShowHead ul,#lzShowBody ul").css({"height":(TitleBodyLiSum*this.doctorheight)});
+//			$("#lzShowHead ul li,#lzShowHead ul li").css({"lineHeight":this.doctorheight+'px'});
+			$("#lzShowBody ul").width(this.doctorwidth);
+			
+			//设置颜色
+			$(".yssyy li:even").css({"background":"rgba(244,244,244,1)"});
+			$("#lzShowHead .yssyy li").css({"background":"rgba(119, 96, 197, 0.0980392)"});
+	},
+	show:function(opt){
+		$.extend(this.showSettings , opt);
+		
+		//数据处理
+		this.data = this.showSettings.data;
+	    var a = [];
+	    var b = [];
+	    for(var i in this.data){
+			if(i == 'crm_sum' || i == 'crm_field'){
+				continue;
+			}else{
+				a.push( this.data[i]["ssys"]);
+				var sj1 = this.changetime(this.data[i]["sssj"]);
+				b.push(sj1);
+			}
+		 }
+		 
+		function sortNumber(a,b){//排序
+			return a - b;
+		}
+		this.titleT = a.unique();
+		this.titleL = b.unique().sort(sortNumber);
+		if(this.titleT.length==0){
+			$("#SurgeryCoordination").hide();
+		}else{
+			$("#SurgeryCoordination").show();
+		}
+		//左标题数据展示
+		var L = '';
+		for(var i=0;i<this.titleL.length;i++){
+			var timeT = '';
+			if(this.titleL[i]%2 == 0){
+				timeT = this.titleL[i]/2 + "点";
+			}else{
+				timeT = parseInt(this.titleL[i]/2) + "点半";
+			}
+			L += '<li rel="'+this.titleL[i]+'">'+timeT+'</li>';
+		};
+		$("#lzShowHead").html('<ul class="yssyy">'+L+'</ul>');
+		
+		//医生预约头展示及内容布局
+		var c = '';
+		var d= '';
+		for(var i=0;i<this.titleT.length;i++){
+			var e = '';
+			for(var j=0;j<this.titleL.length;j++){
+				e += '<li rel="'+this.titleL[j]+'"></li>';
+			};
+			c += '<li>'+this.titleT[i]+'</li>';
+			d+='<ul class="yssyy">'+e+'</ul>'
+		};
+		$("#lzShowTitleBody ul").html(c);
+		$("#lzShowBody div").html(d);
+		
+		this.showmain();
+		this.css();
+	},
+	showmain:function(){
+		for(var i in this.data){
+			for(var j =0;j<this.titleT.length;j++){
+				if(this.data[i]["ssys"]==this.titleT[j]){
+					
+					var sj1= this.changetime(this.data[i]["sssj"]);
+					var li_ = $("#lzShowBody .yssyy").eq(j).find("li[rel="+sj1+"]");
+					var html_ = '<p>顾客id：'+this.data[i]["sca01"]+'</p><p>顾客姓名：'+this.data[i]["name"]+'</p><p style="color:red;">手术时间：'+this.data[i]["sssj"]+'</p><p>预约时间：'+this.data[i]["TIME"]+'</p><p>咨询师：'+this.data[i]["zxs"]+'</p><p>住院医生：'+this.data[i]["zyys"]+'</p><p style="color:red;">手术种类：'+this.data[i]["sszlmz"]+'</p>';
+					li_.html(html_);
+					
+				}
+			}
+		}
+		
+	},
+	changetime:function(time){
+		var sj1 = time.split(' ')[1].split(':')[0]//截取手术时间点
+		var sj2 = time.split(' ')[1].split(':')[1]
+		if(sj1==1){
+			sj1=1
+		}else{
+			if(sj2>=30){
+				sj1 = sj1*2+1;
+			}else{
+				sj1 = sj1*2
+			}
+		}
+		return sj1;
+	}
+
+	
+}
+/****************排班预约结束*********************/
+
+
+/*数组去重*/
+Array.prototype.unique = function(){
+		 var res = [];
+		 var json = {};
+		 for(var i = 0; i < this.length; i++){
+		  if(!json[this[i]]){
+		   res.push(this[i]);
+		   json[this[i]] = 1;
+		  }
+		 }
+		 return res;
+		}
+</script>
